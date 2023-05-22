@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Clothing - Best Apparels Online Store</title>
+
+	<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+   
+	<script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+		function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+	
+	</script>
+
+</head>
+<body>
+	<img src="{% static 'images/light-logo.png' %}"  class="logo-image">
+	<img src="{% static 'images/header.jpg' %}"  class="header-image">
+	<nav class="navbar">
+		<ul class="links-container">
+			<li class="link-item"><a href="#" class="link">home</a></li>
+			<li class="link-item"><a href="#" class="link">women</a></li>
+			<li class="link-item"><a href="#" class="link">men</a></li>
+			<li class="link-item"><a href="#" class="link">kids</a></li>
+			<li class="link-item"><a href="#" class="link">accessories</a></li>
+			<div class="nav">
+				<div class="nav-items">
+					<div class="search">
+						<input  class=" search-box" type="text" placeholder="Search Brand , Product .. ">
+						<button class="search-btn">Search</button>
+						
+					</div>	
+			</div>
+		</div>
+		</ul>
+		
+	
+	
+
+</nav>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+       
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">explore <span class="sr-only">(current)</span></a>
+            </li>
+       
+          </ul>
+          <div class="form-inline my-2 my-lg-0">
+               <a href="#"class="btn btn-warning">Login
+				<img  id="cart-icon" src="{% static 'images/user.png' %}">
+			   </a>
+               
+               <a href="{% url 'basket' %}">
+                  <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+              </a>
+              <p id="cart-total">{{cartItems}}</p>
+  
+          </div>
+        </div>
+      </nav>
+  
+       <div class="container">
+              <br>
+              {% block content %}
+  
+  
+              {% endblock content %}
+           </div>
+		   <footer>
+			<div class="footer-content">
+				<img src ="{% static 'images/light-logo.png' %}" class="logo">
+				<div class="footer-ul-container">
+				 <ul class="category">
+					<li class="category-title">Women</li>
+					<li><a href="#" class="footer-link">Dresses</a></li>
+					<li><a href="#" class="footer-link">shirts</a></li>
+					<li><a href="#" class="footer-link">T-shirts</a></li>
+					<li><a href="#" class="footer-link">sweatshirts</a></li>
+					<li><a href="#" class="footer-link">Sweaters </a></li>
+					<li><a href="#" class="footer-link">Jackets</a></li>
+					<li><a href="#" class="footer-link">coats</a></li>
+					<li><a href="#" class="footer-link">pants</a></li>
+					<li><a href="#" class="footer-link">Jeans</a></li>
+					<li><a href="#" class="footer-link">skirts</a></li>
+					<li><a href="#" class="footer-link">Sportswear</a></li>
+					<li><a href="#" class="footer-link">Pajamas</a></li>
+					<li><a href="#" class="footer-link">swimsuites</a></li>
+					<li><a href="#" class="footer-link">underwear</a></li>
+					
+				 </ul>
+				 <ul class="category">
+					<li class="category-title">Men</li>
+					<li><a href="#" class="footer-link">shirts</a></li>
+					<li><a href="#" class="footer-link">T-shirts </a></li>
+					<li><a href="#" class="footer-link">polo shirts</a></li>
+					<li><a href="#" class="footer-link">pants</a></li>
+					<li><a href="#" class="footer-link">Jeans</a></li>
+					<li><a href="#" class="footer-link">Bermudas</a></li>
+					<li><a href="#" class="footer-link">Blazers</a></li>
+					<li><a href="#" class="footer-link">Jackets</a></li>
+					<li><a href="#" class="footer-link">cardigans </a></li>
+					<li><a href="#" class="footer-link">Leather</a></li>
+					<li><a href="#" class="footer-link">Overshirts</a></li>
+					<li><a href="#" class="footer-link">coats</a></li>
+					<li><a href="#" class="footer-link">swimwear</a></li>
+					<li><a href="#" class="footer-link">Pyjamas</a></li>
+					<li><a href="#" class="footer-link">underwear</a></li>
+		
+		
+				</div>
+			
+			</div>
+		   <p class="footer-title"><strong>CLOTHES</strong> is a KSA based online fashion store offering the latest women, men and kids trends 
+			from the runways straight to the closets of fashion enthusiasts in the Middle East.</p>
+		<p class="info">Young, fun and original,<strong>CLOTHES</strong> offers a totally unique online retail experience for the Middle East. 
+			Fashion-conscious, 20-something customers choose CLOTHES for its aspirational yet accessible product selection, 
+			huge choice of brands and authentically urban aesthetic. Born in 2020,CLOTHES has grown into a brand that champions digital innovation, 
+			has a fiercely independent spirit and inspires its fashion loving customer to experiment with their style. Its vast product mix includes 
+			exclusive in-house collections,sports & activewear and globally-recognised brands, carefully curated for a style-obsessed following.</p>
+			<p class="info" >Support Emails  : help@clothing.com ,
+				Customersupport@clothing.com</p>
+			<p class="info">Telephone - 180 00 00 001 , 180 00 00 002</p>
+			<div class="footer-social-container">
+				<div>
+					<a href="#" class="social-link">Terms & Services</a>
+					<a href="#" class="social-link">Privaicy page</a>
+				</div>
+				<div>
+					<a href="#" class="social-link">instagram</a>
+					<a href="#" class="social-link">facebook </a>
+					<a href="#" class="social-link">Twitter </a>
+				</div>
+			</div>
+			<p class="footer-credit">Clothing , Best Apparels Online Store</p>
+	  </footer>
+	
+	  <script src="nav.js"> </script>
+	  <script src="base.js"> </script>
+	  <script src="footer.js"></script>
+
+	<script type="text/javascript" src="{% static 'js/basket.js' %}"></script>
+</body>
+</html>
